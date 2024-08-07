@@ -22,7 +22,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
   const userExists = await User.findOne({ email });
   if (userExists) {
-    return res.status(422).json({ msg: 'Esse e-mail já está em uso!' });
+    return res.status(422).json({ msg: 'invalid email' });
   }
 
   const salt = await bcrypt.genSalt(12);
@@ -40,9 +40,9 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
   try {
     await user.save();
-    return res.status(201).json({ msg: 'Usuário criado com sucesso!' });
+    return res.status(201).json({ msg: 'User created' });
   } catch (error) {
-    return res.status(500).json({ msg: 'Ocorreu um erro no servidor' });
+    return res.status(500).json({ msg: 'Something went wrong' });
   }
 };
 
@@ -56,19 +56,24 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(422).json({ msg: 'Usuário não encontrado!' });
+    return res.status(422).json({ msg: 'User not found' });
   }
 
   const checkPassword = await bcrypt.compare(password, user.password);
   if (!checkPassword) {
-    return res.status(422).json({ msg: 'Senha inválida!' });
+    return res.status(422).json({ msg: 'Invalid password!' });
   }
 
   try {
     const secret = process.env.SECRET as string;
     const token = jwt.sign({ id: user._id }, secret);
-    return res.status(200).json({ msg: 'Autenticação realizada com sucesso!', token });
+    return res.status(200).json({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      
+    });
   } catch (error) {
-    return res.status(500).json({ msg: 'Ocorreu um erro no servidor' });
+    return res.status(500).json({ msg: 'Something went wrong' });
   }
 };

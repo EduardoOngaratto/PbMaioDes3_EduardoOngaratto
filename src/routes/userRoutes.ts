@@ -5,7 +5,7 @@ import { getUser } from '../controllers/userController';
 const router = Router();
 
 router.get('/users/:id', getUser);
-router.post('/register', register);
-router.post('/login', login);
+router.post('/sign-up', register);
+router.post('/sign-in', login);
 
 export default router;
