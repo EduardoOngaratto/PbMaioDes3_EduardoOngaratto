@@ -2,17 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
+import eventRoutes from './routes/eventRoutes';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.status(200).json({ msg: 'Bem vindo' });
-});
+app.use('/users', userRoutes);
+app.use('/', eventRoutes);
 
-app.use('/api', userRoutes);
 
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
@@ -32,3 +31,5 @@ mongoose
   .catch((err) => {
     console.error('Erro ao conectar com o MongoDB:', err.message);
   });
+
+  export default app;

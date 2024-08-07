@@ -1,5 +1,5 @@
 
-# Projeto CRUD de Usuários e Eventos  Desafio 3 - Semana 12 - Node & AWS
+# Projeto CRUD de Usuários e Eventos / Desafio 3 - Semana 12 - Node & AWS
 
 Este projeto é uma aplicação backend desenvolvida com **Express.js** e **TypeScript** que implementa um CRUD para Usuários e Eventos, incluindo autenticação JWT para segurança. Os dados são armazenados em um banco de dados **MongoDB**. O projeto é implantado em uma instância **EC2 da AWS**.
 
