@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
 
-// Função para obter usuário pelo ID
 export const getUser = async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  // Checa se o usuário existe
   try {
     const user = await User.findById(id, '-password');
     if (!user) {

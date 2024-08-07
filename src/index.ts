@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   res.status(200).json({ msg: 'Bem vindo' });
 });
 
-app.use('/api/users', userRoutes);
+app.use('/api', userRoutes);
 
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
